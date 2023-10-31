@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="http://localhost:3000/favicon.ico">
+    
+    <title>Motorshop</title>
+  <style type="text/css">:root {
+    --blue-light: #D7F2F8;
+}
+
+a {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    color: #5A98B4;
+}
+
+.navbar {
+    height: 60px;
+    padding: 0 60px;
+    background-color: #fff;
+    border-bottom: 1px solid #D7F2F8;
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+}
+
+.navbar__logo {
+    width: 200px;
+}
+
+.navbar__nav {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+    grid-auto-flow: column;
+}
+
+.nav--border {
+    padding: 10px;
+    border: 1px solid #fff;
+    border-radius: 6px;
+    transition: border 200ms ease-in-out;
+}
+
+.nav--border:hover {
+    border: 1px solid #D7F2F8;
+}
+
+.nav--border:active {
+    filter: brightness(0.9);
+}
+
+.navbar__nav-left {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (1fr)[5];
+        grid-template-columns: repeat(5, 1fr);
+    grid-auto-flow: column;
+    -ms-grid-column-align: left;
+        justify-items: left;
+    -ms-flex-align: center;
+        align-items: center;
+    gap: 10px;
+}
+
+.navbar__nav-right {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: end;
+        justify-content: flex-end;
+    -ms-flex-align: center;
+        align-items: center;
+    gap: 10px;
+}
+
+.navbar__nav-item {
+    display: -ms-grid;
+    display: grid;
+    place-items: center;
+}
+
+.btn-singup{
+    color: #5A98B4;
+    background-color: #D7F2F8;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    transition: filter 300ms;
+}
+
+.btn-singup:hover {
+    filter: brightness(0.9);
+}
+
+.btn-singup:active {
+    filter: brightness(0.8);
+
+}
+
+.shopping--cart{
+    width: 30px;
+    height: 30px;
+    position: relative;
+}
+
+.shopping--cart img {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+}
+
+.shopping--cart:hover {
+    filter: brightness(0.9);
+}
+
+.shopping--cart:active {
+    filter: brightness(0.8);
+}
+
+.shopping--cart__counter {
+    position: relative;
+    bottom: -12px;
+    left: -10px;
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    border-radius: 50%;
+    display: -ms-grid;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-size: 10px;
+}</style><style type="text/css">:root {
+    --white: #FFFFFF;
+    --black: #000000;
+    --blue-bold: #5A98B4;
+    --blue-light: #D7F2F8;
+    --text-input-field: #F7F7F7;
+    --sm: 14px;
+    --md: 16px;
+    --lg: 18px;
+}
+
+.btn-bold {
+    color: var(--blue-bold);
+    background-color: var(--blue-light);
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.btn-bold:hover {
+    filter: brightness(0.9);
+}
+
+.btn-bold:active {
+    filter: brightness(0.8);
+    /* box-shadow: 0 1px 1px rgba(229, 103, 23, 0.075)inset, 0 0 8px var(--blue-bold); */
+}</style><style type="text/css">.footer {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 2fr 1fr;
+        grid-template-columns: 1fr 2fr 1fr;
+    grid-auto-flow: column;
+    margin: 60px auto 20px auto;
+    border-top: 1px solid #5A98B4;
+    max-width: 1240px;
+}
+
+.footer__redes ul li{
+    display: -ms-flexbox;
+    display: flex;
+    gap: 10px;
+
+}
+
+.footer__contacto ul {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+        flex-direction: column;
+    gap: 20px;
+    color: #5A98B4;
+
+}
+
+:is(.footer__redes, .footer__contacto) h3 {
+    color: #5A98B4;
+    border-bottom: 1px solid #5A98B4;
+    width: -moz-fit-content;
+    width: fit-content;
+}
+
+.footer__logo {
+    width: 300px;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
+    justify-self: end;
+}</style><style type="text/css">:root {
+    --white: #FFFFFF;
+    --black: #000000;
+    --blue-bold: #5A98B4;
+    --blue-light: #D7F2F8;
+}
+
+.btn-light {
+    color: var(--blue-bold);
+    background-color: var(--white);
+    border: 1px solid var(--blue-bold);
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.btn-light:hover {
+    filter: brightness(0.9);
+}
+
+.btn-light:active {
+    filter: brightness(0.8);
+}</style><style type="text/css">.main-container {
+    max-width: 1240px;
+    margin: 20px auto 0;
+}
+
+h1,
+h2 {
+    color: #5A98B4;
+}
+
+h1 {
+    text-align: center;
+}
+
+.main-container p {
+    color: rgb(117, 117, 117);
+}
+
+.main__sections {
+    width: 100%;
+    margin: 40px 0;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: row;
+        flex-direction: row;
+    -ms-flex-pack: center;
+        justify-content: center;
+    gap: 20px;
+}
+
+.main__sections .section {
+    width: 300px;
+    height: 70px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    display: -ms-grid;
+    display: grid;
+    grid-auto-flow: column;
+    place-items: center;
+    color: #000;
+}
+
+.main__links img {
+    filter: brightness(0);
+}
+
+.main__links:hover {
+    filter: invert(0.3);
+}
+
+.main__links:active {
+    filter: invert(0.5);
+}
+
+.main__vehicles {
+    border: 1px solid #000;
+    padding: 5px;
+}
+
+.vehicle {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: row;
+        flex-direction: row;
+    -ms-flex-pack: justify;
+        justify-content: space-between;
+    -ms-flex-align: center;
+        align-items: center;
+    margin: 10px 0;   
+}
+
+
+
+
+.main__about {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+    grid-auto-flow: column;
+    gap: 20px;
+}
+
+.main__about--text {
+    padding: 0 50px;
+}
+
+
+.main__about--img {
+    display: -ms-grid;
+    display: grid;
+    place-items: center;
+}
+
+.main__about--img img {
+    max-width: 400px;
+}</style><style type="text/css">@import url(//fonts.googleapis.com/css?family=Lato:300:400);</style><style type="text/css">:root {
+    --white: #FFFFFF;
+    --black: #000000;
+    --blue-bold: #5A98B4;
+    --blue-light: #D7F2F8;
+    --text-input-field: #F7F7F7;
+    --sm: 14px;
+    --md: 16px;
+    --lg: 18px;
+}
+
+body {
+    margin: 0;
+}
+
+.content p {
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 1px;
+    font-size: 14px;
+    color: #333333;
+}
+
+.header {
+    position: relative;
+    text-align: center;
+    background: linear-gradient(60deg, rgba(84, 58, 183, 1) 0%, rgba(0, 172, 193, 1) 100%);
+    color: white;
+}
+
+.logo {
+    width: 50px;
+    fill: white;
+    padding-right: 15px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.inner-header {
+    height: 85vh;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    
+}
+
+.flex {
+    /*Flexbox for containers*/
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: center;
+        justify-content: center;
+    -ms-flex-align: center;
+        align-items: center;
+    text-align: center;
+}
+
+.login {
+    width: 300px;
+    height: 350px;
+    background: var(--white);
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+        flex-direction: column;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -ms-flex-align: center;
+        align-items: center;
+    /* gap: 0px; */
+    border-radius: 10px;
+}
+
+.login img {
+    width: 200px;
+}
+
+.login h2 {
+
+    color: gray;
+    font-family: sans-serif;
+    font-weight: bolder;
+    /* letter-spacing: 2px; */
+    font-size: 12px;
+}
+
+.login p {
+    color: #333333;
+}
+
+.login form {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+        flex-direction: column;
+    -ms-flex-pack: space-evenly;
+        justify-content: space-evenly;
+    -ms-flex-align: center;
+        align-items: center;
+    height: 200px;
+    gap: 5px;
+}
+
+.login form input {
+    width: 200px;
+    height: 20px;
+    border: 1px solid var(--blue-bold);
+    border-radius: 5px;
+    padding: 5px;
+
+}
+
+textarea:focus, input:focus, input[type]:focus {
+    border-color: var(--blue-bold);
+    box-shadow: 0 1px 1px rgba(229, 103, 23, 0.075)inset, 0 0 8px var(--blue-bold);
+    outline: 0 none;
+}
+
+.login form a {
+    display: inline-block;
+    -ms-flex-item-align: start;
+        align-self: flex-start;
+    text-decoration: none;
+    font-family: sans-serif;
+    font-size: 14px;
+    color: var(--blue-bold);
+}
+
+.login form .login-btn {
+    width: 120px;
+    height: 30px;
+    color: var(--blue-bold);
+    background: var(--blue-light);
+    border: none;
+
+    transition: filter 300ms;
+}
+
+.login form .login-btn:hover {
+    filter: brightness(0.94);
+}
+
+/* .waves {
+    position: relative;
+    width: 100%;
+    height: 15vh;
+    margin-bottom: -7px;
+    min-height: 100px;
+    max-height: 150px;
+} */
+
+.content {
+    position: relative;
+    height: 10vh;
+    text-align: center;
+    background-color: white;
+}
+
+/*Shrinking for mobile*/
+@media (max-width: 768px) {
+    .content {
+        height: 20vh;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+}</style><style type="text/css">body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+.nav-logo {
+  width: 200px;
+  height: 30px;
+  color: red;
+}</style><script type="text/javascript" charset="utf-8" src="Motorshop_files/0.c1809ae49af7a4a72bcd.hot-update.js"></script><script type="text/javascript" charset="utf-8" src="Motorshop_files/0.74f2b4daa99fcd5f8984.hot-update.js"></script><script type="text/javascript" charset="utf-8" src="Motorshop_files/0.c90dfc4c63d6ede0e9f6.hot-update.js"></script><script type="text/javascript" charset="utf-8" src="Motorshop_files/0.1470ab2f62cc1bb11b54.hot-update.js"></script><script type="text/javascript" charset="utf-8" src="Motorshop_files/0.6be22d1409b87a462d51.hot-update.js"></script></head>
+  <body>
+    <!-- Contenido -->
+    <div id="root"><div><div><header><nav class="navbar"><ul class="navbar__nav-left"><li class="navbar__nav-item "><a href="http://localhost:3000/"><img class="navbar__logo" src="Motorshop_files/motorshop_logo.f615ef6a.png" alt="Logo_motorshop"></a></li><li class="navbar__nav-item nav--border"><a href="http://localhost:3000/#Vehiculos">Vehículos</a></li><li class="navbar__nav-item nav--border"><a href="http://localhost:3000/#Cotizar">Cotizar</a></li></ul><ul class="navbar__nav-right"><li class="navbar__nav-item shopping--cart"><img src="Motorshop_files/shopping-cart.cf1fb9f5.svg" alt="shopping_cart"><span class="shopping--cart__counter">2</span></li><li class="navbar__nav-item nav--border"><a href="http://localhost:3000/login">Log In</a></li><li class="navbar__nav-item"><a href="http://localhost:3000/#SingUp"><button class="btn-bold">Sing Up</button></a></li></ul></nav></header><div style="width: 100%; height: 480px; background: rgb(255, 255, 255);"><div style="position: relative; height: 100%;"><div><div style="position: absolute; top: 50%; transform: translate(0px, -50%); left: 32px; font-size: 45px; color: rgb(255, 255, 255); z-index: 1; cursor: pointer;">❰</div><div style="position: absolute; top: 50%; transform: translate(0px, -50%); right: 32px; font-size: 45px; color: rgb(255, 255, 255); z-index: 1; cursor: pointer;">❱</div></div><div style="width: 100%; height: 100%; background-size: cover; background-position: center center; background-image: url(&quot;https://i.imgur.com/8lxEjbX.png&quot;); position: absolute;"></div><div style="display: flex; justify-content: center;"><div style="margin: 0px 3px; cursor: pointer; position: relative; font-size: 20px; top: 440px; color: rgb(255, 255, 255); z-index: 2;">●</div><div style="margin: 0px 3px; cursor: pointer; position: relative; font-size: 20px; top: 440px; color: rgb(255, 255, 255); z-index: 2;">●</div><div style="margin: 0px 3px; cursor: pointer; position: relative; font-size: 20px; top: 440px; color: rgb(255, 255, 255); z-index: 2;">●</div></div></div></div><main class="main-container"><div class="main__sections"><a href="#Vehiculos" class="main__links"><div class="section"><img src="Motorshop_files/steering-2.0cc79996.svg" alt=""><h3>Nuestro catalogó</h3></div></a><a href="#About" class="main__links"><div class="section"><img src="Motorshop_files/map-pin-2.faf2c5d4.svg" alt=""><h3>¿Dondé estamos?</h3></div></a><a href="#Cotizar" class="main__links"><div class="section"><img src="Motorshop_files/hand-coin.4f494aab.svg" alt=""><h3>Cotiza aquí</h3></div></a></div><h1 class="main__title">¡Encuentra tu próximo vehículo!</h1><div class="main__vehicles"><div class="vehicle"><img src="Motorshop_files/stock3.18c64c45.png" alt="" style="width: 120px; height: 100px;"><h3>Toyota Corolla</h3><a href="#Cotizar" class="main__links"><button class="btn-light">Ver más</button></a></div></div><div class="main__about"><div class="main__about--text"><h2 id="About">¿Qué es MotorShop?</h2><p>Exercitation
+ sint ea amet pariatur quis nulla tempor esse qui eiusmod consectetur 
+velit sunt aliqua. Pariatur officia ut ad dolor ipsum eiusmod. Nulla 
+aliquip magna tempor nisi ullamco nostrud veniam sint occaecat ullamco 
+proident cupidatat aliquip sit. Adipisicing id anim duis culpa cupidatat
+ cillum qui amet proident.</p></div><div class="main__about--img"><img src="Motorshop_files/stock3.18c64c45.png" alt="about"></div></div></main><footer class="footer"><section class="footer__redes"><h3>Nuestras redes</h3><ul><li><a href="https://www.facebook.com/" target="_blank"><img src="Motorshop_files/facebook.6a358fa7.svg" alt="Facebook"></a><a href="https://www.instagram.com/" target="_blank"><img src="Motorshop_files/instagram.83fd8c27.svg" alt="Instagram"></a><a href="https://www.twitter.com/" target="_blank"><img src="Motorshop_files/twitter.e1764236.svg" alt="Twitter"></a></li></ul></section><section class="footer__contacto"><h3>Contacto</h3><ul><li>motorshop@mshop.com</li><li>+57 341-234-5678</li><li>Bogotá, Colombia</li></ul></section><img class="footer__logo" src="Motorshop_files/motorshop_logo.f615ef6a.png" alt="Logo_motorshop"></footer></div></div></div>
+  <script type="text/javascript" src="Motorshop_files/bundle.js"></script>
+ 
+</body></html>

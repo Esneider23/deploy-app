@@ -1,0 +1,146 @@
+:root {
+    --blue-light: #D7F2F8;
+}
+
+a {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    color: #5A98B4;
+}
+
+.navbar {
+    height: 60px;
+    padding: 0 60px;
+    background-color: #fff;
+    border-bottom: 1px solid #D7F2F8;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.navbar__logo {
+    width: 200px;
+}
+
+.navbar__nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-flow: column;
+}
+
+.nav--border {
+    padding: 10px;
+    border: 1px solid #fff;
+    border-radius: 6px;
+    transition: border 200ms ease-in-out;
+}
+
+.nav--border:hover {
+    border: 1px solid #D7F2F8;
+}
+
+.nav--border:active {
+    filter: brightness(0.9);
+}
+
+.navbar__nav-left {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-flow: column;
+    justify-items: left;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar__nav-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar__nav-item {
+    display: grid;
+    place-items: center;
+}
+
+.btn-singup {
+    color: #5A98B4;
+    background-color: #D7F2F8;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    transition: filter 300ms;
+}
+
+.btn-singup:hover {
+    filter: brightness(0.9);
+}
+
+.btn-singup:active {
+    filter: brightness(0.8);
+
+}
+
+.shopping--cart {
+    width: 30px;
+    height: 30px;
+    position: relative;
+}
+
+.shopping--cart--link {
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: grid;
+    place-items: center;
+}
+
+.shopping--cart img {
+    position: relative;
+    width: 30px;
+    height: 30px;
+}
+
+.shopping--cart:hover {
+    filter: brightness(0.9);
+    cursor: pointer;
+}
+
+.shopping--cart:active {
+    filter: brightness(0.8);
+}
+
+.shopping--cart__counter {
+    position: relative;
+    bottom: 12px;
+    left: -2px;
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-size: 10px;
+}
+
+.navbar__user-icon {
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+}
+
+.navbar__user-icon:hover {
+    filter: brightness(0.9);
+}
+
+.navbar__user-icon:active {
+    filter: brightness(0.8);
+}
+
+.navbar__user-icon img {
+    width: 30px;
+    height: 30px;
+}

@@ -1,0 +1,47 @@
+.profile__container {
+    width: 1200px;
+    height: calc(100vh - 280px);
+    margin: 0 auto;
+}
+
+.profile__container h4 {
+    color: #5A98B4;
+}
+
+.profile__info {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: dotted 2px #5A98B4;
+}
+
+.profile__admin-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 200px);
+}
+
+.profile__admin-inventory {
+    display: grid;
+    place-items: center;
+}
+
+.profile__admin-edit-admin {
+    display: grid;
+    place-items: center;
+}
+
+.profile__list-users {
+    display: grid;
+    place-items: center;
+}
+
+.profile__admin-inventory picture,
+.profile__admin-edit-admin picture,
+.profile__list-users picture {
+    width: 100px;
+    height: 100px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    border: 2px solid #5A98B4;
+}
+
