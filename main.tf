@@ -29,17 +29,14 @@ resource "azurerm_service_plan" "service_plan" {
   location            = azurerm_resource_group.rg_service_web.location
   resource_group_name = azurerm_resource_group.rg_service_web.name
   os_type             = "Linux"
-  sku {
-    tier = "Free"
-    size = "F1"
-  }
+  sku_name            = "Free"
 }
 
 resource "azurerm_app_service" "web_app_client" {
     name                = "MOTORSHOP" # this is the name on azure
     resource_group_name = azurerm_resource_group.rg_service_web.name
     location            = azurerm_resource_group.rg_service_web.location
-    service_plan_id     = azurerm_service_plan.service_plan.id
+    app_service_plan_id = azurerm_service_plan.service_plan.id
     site_config {
         use_32_bit_worker_process = true
         linux_fx_version = "NODE|12-lts"
