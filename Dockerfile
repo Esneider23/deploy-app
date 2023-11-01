@@ -1,5 +1,5 @@
 # Usa Node.js como imagen base
-FROM node:latest
+FROM node:latest as my_stage
 
 # Establece el directorio de trabajo dentro del contenedor
 WORKDIR /app
