@@ -57,4 +57,3 @@ resource "azurerm_app_service_source_control" "sourcecontrol" {
 output "url" {
   value = azurerm_app_service.web_app_client.default_site_hostname
 }
-```
