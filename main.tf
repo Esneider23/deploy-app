@@ -31,8 +31,8 @@ variable "imagebuild" {
 
 resource "azurerm_container_group" "tf_cg_utb" {
   name                  = "motorshop"
-  location              = azurerm_resource_group.rg_utbapp.location #utilising the resource group
-  resource_group_name   = azurerm_resource_group.rg_utbapp.name #utilising the resource group
+  location              = azurerm_resource_group.rg_service_web.location #utilising the resource group
+  resource_group_name   = azurerm_resource_group.rg_service_web.name #utilising the resource group
 
   ip_address_type       = "Public"
   dns_name_label        = "MOTORSHOP" #friendly name we want to give our domain
