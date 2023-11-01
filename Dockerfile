@@ -24,4 +24,4 @@ RUN npm run build
 RUN npm install -g serve
 
 # Establece el comando para iniciar la aplicación
-CMD ["serve", "-s", "build", "-l", "3000"]
+CMD ["serve", "-s", "build", "-l", "80"]
