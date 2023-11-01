@@ -10,13 +10,11 @@ variables:
   tag: '$(Build.BuildId)'
 
 stages:
-- stage: create Docker
+- stage: Build
   displayName: 'Creating Docker image'
   jobs:
   - job: Build
     displayName: Build
-    #pool:
-    #  vmImage: ubuntu-latest
     pool:
       name: UTB
     steps:
@@ -28,13 +26,13 @@ stages:
         Dockerfile: '**/Dockerfile'
         tags: |
           $(tag)
+
 - stage: Provision
   displayName: 'Creating terraform on Azure'
   jobs:
     - job: provision
       displayName: 'Provision instance'
       pool:
-        # vmImage: ubuntu-latest
         name: UTB
       variables: 
       - group: var
