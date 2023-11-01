@@ -20,7 +20,7 @@ stages:
     steps:
     - task: Docker@2
       inputs:
-        containerRegistry: 'Docker Hub'
+        containerRegistry: 'docker'
         repository: 'esneider23/app-deploy'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
@@ -29,6 +29,7 @@ stages:
 
 - stage: Provision
   displayName: 'Creating terraform on Azure'
+  dependsOn: Build
   jobs:
     - job: provision
       displayName: 'Provision instance'
