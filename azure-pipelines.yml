@@ -6,14 +6,32 @@
 trigger:
 - main
 
-pool:
-  vmImage: ubuntu-latest
+variables:
+  tag: '$(Build.BuildId)'
 
-steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+stages:
+- stage: Provision
+  displayName: 'Creating terraform on Azure'
+  jobs:
+    - job: provision
+      displayName: 'Provision instance'
+      pool:
+        # vmImage: ubuntu-latest
+        name: UTB
+      variables: 
+      - group: var
+      steps:
+        - script: |
+            set -e 
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+            terraform init -input=false
+            terraform apply -input=false -auto-approve
+          name: 'RunTerraform'
+          displayName: 'Run Terraform'
+          env: 
+            ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+            ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+            ARM_TENANT_ID: $(ARM_TENANT_ID)
+            ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+            TF_VAR_imagebuild: $(tag)
+
