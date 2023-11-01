@@ -1,0 +1,72 @@
+.form-cotizar {
+    max-width: 1200px;
+    height: 55vh;
+    margin: 30px auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+}
+
+.form-cotizar__left {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 20px;
+    padding: 20px;
+}
+
+:is(.form-cotizar__left, .form-cotizar__right) label span {
+    margin: 0 5px 0 0;
+}
+
+.form-cotizar__left img {
+    width: 300px;
+    align-self: center;
+}
+
+.form-cotizar__right {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.form-cotizar__right input {
+    width: 200px;
+    height: 20px;
+    border: 1px solid var(--blue-bold);
+    border-radius: 5px;
+}
+
+.form-cotizar__right .checkbox-input {
+    margin: 0 10px 0 0;
+    padding: 0;
+    width: 16px;
+    height: 16px;
+}
+
+
+
+textarea:focus, input:focus, input[type]:focus {
+    border-color: var(--blue-bold);
+    box-shadow: 0 1px 1px rgba(229, 103, 23, 0.075)inset, 0 0 8px var(--blue-bold);
+    outline: 0 none;
+}
+
+.btn-subtmit {
+    width: 120px;
+    height: 30px;
+    color: var(--blue-bold);
+    background: var(--blue-light);
+    border: none;
+    border-radius: 6px;
+    transition: filter 300ms;
+}
+
+.btn-subtmit:hover {
+    filter: brightness(0.94);
+}
