@@ -29,7 +29,7 @@ resource "azurerm_service_plan" "service_plan" {
   location            = azurerm_resource_group.rg_service_web.location
   resource_group_name = azurerm_resource_group.rg_service_web.name
   os_type             = "Linux"
-  sku_name            = "Free"
+  sku_name            = "P1v2"
 }
 
 resource "azurerm_app_service" "web_app_client" {
