@@ -18,3 +18,8 @@ provider "azurerm" {
   features {
   }
 }
+
+resource "azurerm_resource_group" "rg_service_web" {
+  name = "rg_service_web" # this is the name on azure
+  location = "eastus" # data center location on azure
+}
