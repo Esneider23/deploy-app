@@ -30,7 +30,7 @@ variable "imagebuild" {
 }
 
 resource "azurerm_cosmosdb_postgresql_cluster" "database" {
-  name                            = "database"
+  name                            = "database-motorshop"
   resource_group_name             = azurerm_resource_group.rg_service_web.name
   location                        = azurerm_resource_group.rg_service_web.location
   administrator_login_password    = "klmdvklsnknskkfehwi2r3edvcdnowqch90b-au3chduiynicsh"
