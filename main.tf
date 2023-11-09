@@ -82,4 +82,71 @@ resource "azurerm_linux_web_app" "app-motorshop" {
   }
 }
 
+resource "azurerm_public_ip" "ip_motorshop" {
+  name                = "ip-motorshop"
+  location            = azurerm_resource_group.rg_service_web.location
+  resource_group_name = azurerm_resource_group.rg_service_web.name
+  allocation_method   = "Static"
+  sku                 = "Standard"
+}
+
+
+resource "azurerm_lb" "lb_motorshop" {
+  name                = "lb-motorshop"
+  location            = azurerm_resource_group.rg_service_web.location
+  resource_group_name = azurerm_resource_group.rg_service_web.name
+
+  frontend_ip_configuration {
+    name                 = "PublicIPAddress"
+    public_ip_address_id = azurerm_public_ip.ip_motorshop.id
+  }
+
+  backend_address_pool {
+    name = "BackendAddressPool"
+  }
+
+  probe {
+    name                 = "HTTPProbe"
+    protocol             = "Http"
+    request_path         = "/"
+    port                 = 80
+    interval_in_seconds  = 15
+    number_of_probes     = 2
+  }
+
+  load_balancing_rule {
+    name                        = "HTTPRule"
+    frontend_ip_configuration_id = azurerm_lb.myloadbalancer.frontend_ip_configuration[0].id
+    backend_address_pool_id     = azurerm_lb.myloadbalancer.backend_address_pool[0].id
+    probe_id                    = azurerm_lb.myloadbalancer.probe[0].id
+    protocol                    = "Tcp"
+    frontend_port               = 80
+    backend_port                = 80
+  }
+}
+
+resource "azurerm_virtual_network" "network-motorshop" {
+  name                = "network-motorshop"
+  address_space       = ["10.0.0.0/16"]
+  location            = azurerm_resource_group.rg_service_web.location
+  resource_group_name = azurerm_resource_group.rg_service_web.name
+}
+
+resource "azurerm_subnet" "subnet-motorshop" {
+  name                 = "subnet-motorshop"
+  resource_group_name  = azurerm_resource_group.rg_service_web.name
+  virtual_network_name = azurerm_virtual_network.network-motorshop.name
+  address_prefixes     = ["10.0.1.0/24"]
+}
+
+resource "azurerm_app_service_virtual_network_swift_connection" "connection" {
+  app_service_id                 = azurerm_linux_web_app.app-motorshop.id
+  swift_resource_id              = azurerm_lb.lb_motorshop.id
+  subnet_id                      = azurerm_subnet.subnet-motorshop.id
+  swift_network_connector_name   = "connection"
+}
+
+
+
+
 
