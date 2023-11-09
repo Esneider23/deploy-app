@@ -39,10 +39,9 @@ resource "azurerm_cosmosdb_postgresql_cluster" "database" {
   node_count                      = 0
 }
 
-resource "azurerm_cosmosdb_sql_database_firewall_rule" "allow_all_rule" {
+resource "azurerm_cosmosdb_postgresql_firewall_rule" "allow_all_rule" {
   name                = "AllowAll_2023-11-9_11-9-10"
-  resource_group_name = azurerm_resource_group.rg_service_web.name
-  account_name        = azurerm_cosmosdb_postgresql_cluster.database.name
+  cluster_id          = azurerm_cosmosdb_postgresql_cluster.database.id
   start_ip_address    = "0.0.0.0"
   end_ip_address      = "255.255.255.255"
   depends_on = [
@@ -50,10 +49,9 @@ resource "azurerm_cosmosdb_sql_database_firewall_rule" "allow_all_rule" {
   ]
 }
 
-resource "azurerm_cosmosdb_sql_database_firewall_rule" "client_ip_rule" {
+resource azurerm_cosmosdb_postgresql_firewall_rule" "client_ip_rule" {
   name                = "ClientIPAddress_2023-11-9_11-9-12"
-  resource_group_name = azurerm_resource_group.rg_service_web.name
-  account_name        = azurerm_cosmosdb_postgresql_cluster.database.name
+  cluster_id          = azurerm_cosmosdb_postgresql_cluster.database.id
   start_ip_address    = "177.254.86.86"
   end_ip_address      = "177.254.86.86"
   depends_on = [
