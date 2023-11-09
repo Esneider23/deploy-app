@@ -49,7 +49,7 @@ resource "azurerm_cosmosdb_postgresql_firewall_rule" "allow_all_rule" {
   ]
 }
 
-resource azurerm_cosmosdb_postgresql_firewall_rule" "client_ip_rule" {
+resource "azurerm_cosmosdb_postgresql_firewall_rule" "client_ip_rule" {
   name                = "ClientIPAddress_2023-11-9_11-9-12"
   cluster_id          = azurerm_cosmosdb_postgresql_cluster.database.id
   start_ip_address    = "177.254.86.86"
