@@ -65,6 +65,17 @@ output "cosmosdb_connectionstrings" {
    sensitive   = true
 }
 
+resource "azurerm_public_ip" "ip_public" {
+  name                = "ip-motorshop"
+  location            = azurerm_resource_group.rg_service_web.location
+  resource_group_name = azurerm_resource_group.rg_service_web.name
+  allocation_method   = "Static"
+
+  tags = {
+    environment = "Production"
+  }
+}
+
 resource "azurerm_container_group" "tf_cg_utb" {
   name                  = "motorshop"
   location              = azurerm_resource_group.rg_service_web.location #utilising the resource group
@@ -87,3 +98,36 @@ resource "azurerm_container_group" "tf_cg_utb" {
     }
   }
 }
+
+resource "azurerm_lb" "balancer" {
+  name                = "lb-motorshop"
+  resource_group_name = azurerm_resource_group.rg_service_web.name
+  location            = azurerm_resource_group.rg_service_web.location
+
+  frontend_ip_configuration {
+    name                 = "PublicIPAddress"
+    public_ip_address_id = azurerm_public_ip.ip_public.id
+  }
+
+  backend_address_pool {
+    name = azurerm_container_group.tf_cg_utb.name
+  }
+
+  probe {
+    name                = "http-probe"
+    protocol            = "Http"
+    request_path        = "/"
+    port                = 80
+  }
+
+  rule {
+    name                  = "HTTP"
+    frontend_ip_configuration_id = azurerm_lb.example.frontend_ip_configuration[0].id
+    backend_address_pool_id      = azurerm_lb.example.backend_address_pool[0].id
+    probe_id                     = azurerm_lb.example.probe[0].id
+    frontend_port                = 80
+    backend_port                 = 80
+    protocol                     = "Tcp"
+  }
+}
+
