@@ -37,6 +37,11 @@ resource "azurerm_cosmosdb_postgresql_cluster" "database" {
   coordinator_storage_quota_in_mb = 131072
   coordinator_vcore_count         = 2
   node_count                      = 0
+  firewall_rule {
+    name             = "AllowAll"
+    start_ip_address = "0.0.0.0"
+    end_ip_address   = "255.255.255.255"
+  }
 }
 
 output "cosmosdb_connectionstrings" {
@@ -44,15 +49,56 @@ output "cosmosdb_connectionstrings" {
    sensitive   = true
 }
 
+resource "azurerm_lb" "lb" {
+  name                = "my-load-balancer"
+  resource_group_name = azurerm_resource_group.rg_service_web.name
+  location            = azurerm_resource_group.rg_service_web.location
+
+  frontend_ip_configuration {
+    name                 = "PublicIPAddress"
+    public_ip_address_id = azurerm_public_ip.lb_public_ip.id
+  }
+
+  backend_address_pool {
+    name = "backend-pool"
+  }
+
+  probe {
+    name                      = "http-probe"
+    protocol                  = "http"
+    request_path              = "/"
+    port                      = 80
+    interval_in_seconds       = 15
+    number_of_probes          = 4
+  }
+
+  rule {
+    name                  = "http-rule"
+    frontend_ip_configuration_name = "PublicIPAddress"
+    backend_address_pool_id = azurerm_container_group.tf_cg_utb.id
+    probe_id                = azurerm_lb_probe.http-probe.id
+    frontend_port           = 80
+    backend_port            = 80
+    protocol                = "Tcp"
+  }
+}
+
 resource "azurerm_container_group" "tf_cg_utb" {
   name                  = "motorshop"
-  location              = azurerm_resource_group.rg_service_web.location #utilising the resource group
-  resource_group_name   = azurerm_resource_group.rg_service_web.name #utilising the resource group
+  location              = azurerm_resource_group.rg_service_web.location 
+  resource_group_name   = azurerm_resource_group.rg_service_web.name #
 
   ip_address_type       = "Public"
   dns_name_label        = "MOTORSHOP" #friendly name we want to give our domain
   os_type               = "Linux"
 
+  identity {
+    type = "SystemAssigned"
+  }
+
+  network_profile {
+    id = azurerm_lb.lb.id
+  }
   # Specify the container information
   container {
     name = "app-deploy"
@@ -66,3 +112,4 @@ resource "azurerm_container_group" "tf_cg_utb" {
     }
   }
 }
+
