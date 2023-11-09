@@ -59,30 +59,44 @@ resource "azurerm_cosmosdb_postgresql_firewall_rule" "client_ip_rule" {
   ]
 }
 
+resource "azurerm_lb" "lb_motorshop" {
+  name                  = "motorshop-lb"
+  location              = azurerm_resource_group.rg_service_web.location
+  resource_group_name   = azurerm_resource_group.rg_service_web.name
 
-output "cosmosdb_connectionstrings" {
-   value = "host=c-${azurerm_cosmosdb_postgresql_cluster.database.name}.postgres.cosmos.azure.com port=5432;dbname=citus;user=citus;password=${azurerm_cosmosdb_postgresql_cluster.database.administrator_login_password};sslmode=require"
-   sensitive   = true
-}
+  frontend_ip_configuration {
+    name                = "lb_frontend_motorshop"
+    public_ip_address {
+      name = "lb_public_ip_motorshop"
+      allocation_method = "Dynamic"
+    }
+  }
 
-resource "azurerm_public_ip" "ip_public" {
-  name                = "ip-motorshop"
-  location            = azurerm_resource_group.rg_service_web.location
-  resource_group_name = azurerm_resource_group.rg_service_web.name
-  allocation_method   = "Static"
+  backend_address_pool {
+    name = "lb_backend_pool_motorshop"
+  }
 
-  tags = {
-    environment = "Production"
+  load_balancing_rule {
+    name = "lb_rule_motorshop"
+    protocol = "Tcp"
+    frontend_port = 80
+    backend_port = 80
+    frontend_ip_configuration {
+      id = azurerm_lb_frontend_ip_configuration.lb_frontend_motorshop.id
+    }
+    backend_address_pool {
+      id = azurerm_lb_backend_address_pool.lb_backend_pool_motorshop.id
+    }
   }
 }
 
 resource "azurerm_container_group" "tf_cg_utb" {
   name                  = "motorshop"
-  location              = azurerm_resource_group.rg_service_web.location #utilising the resource group
-  resource_group_name   = azurerm_resource_group.rg_service_web.name #utilising the resource group
+  location              = azurerm_resource_group.rg_service_web.location
+  resource_group_name   = azurerm_resource_group.rg_service_web.name
 
-  ip_address_type       = "Public"
-  dns_name_label        = "MOTORSHOP" #friendly name we want to give our domain
+  ip_address_type       = "None"
+  dns_name_label        = "MOTORSHOP"
   os_type               = "Linux"
 
   # Specify the container information
@@ -95,6 +109,12 @@ resource "azurerm_container_group" "tf_cg_utb" {
     ports {
         port = 80
         protocol = "TCP"
+    }
+  }
+
+  network_profile {
+    load_balancers {
+      id = azurerm_lb.lb_motorshop.id
     }
   }
 }
