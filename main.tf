@@ -97,37 +97,41 @@ resource "azurerm_container_group" "tf_cg_utb" {
         protocol = "TCP"
     }
   }
-}
 
-resource "azurerm_lb" "balancer" {
-  name                = "lb-motorshop"
-  resource_group_name = azurerm_resource_group.rg_service_web.name
+resource "azurerm_lb" "app_gateway" {
+  name                = "app-gateway"
   location            = azurerm_resource_group.rg_service_web.location
+  resource_group_name = azurerm_resource_group.rg_service_web.name
 
   frontend_ip_configuration {
     name                 = "PublicIPAddress"
-    public_ip_address_id = azurerm_public_ip.ip_public.id
+    public_ip_address_id = azurerm_public_ip.lb_public_ip.id
   }
 
   backend_address_pool {
-    name = azurerm_container_group.tf_cg_utb.name
+    name = "app-backend-pool"
   }
 
   probe {
-    name                = "http-probe"
-    protocol            = "Http"
-    request_path        = "/"
-    port                = 80
+    name = "http-probe"
+    protocol = "Http"
+    request_path = "/"
+    port = 80
   }
 
   rule {
-    name                  = "HTTP"
-    frontend_ip_configuration_id = azurerm_lb.example.frontend_ip_configuration[0].id
-    backend_address_pool_id      = azurerm_lb.example.backend_address_pool[0].id
-    probe_id                     = azurerm_lb.example.probe[0].id
-    frontend_port                = 80
-    backend_port                 = 80
-    protocol                     = "Tcp"
+    name = "http-rule"
+    frontend_ip_configuration_id = azurerm_lb.app_gateway.frontend_ip_configuration[0].id
+    backend_address_pool_id = azurerm_lb.app_gateway.backend_address_pool[0].id
+    probe_id = azurerm_lb.app_gateway.probe[0].id
+    frontend_port = 80
+    backend_port = 80
+    protocol = "Tcp"
   }
 }
 
+resource "azurerm_network_interface_backend_address_pool_association" "example" {
+  network_interface_id    = azurerm_container_group.tf_cg_utb.network_interface_ids[0]
+  ip_configuration_name   = "internal"
+  backend_address_pool_id = azurerm_lb.app_gateway.backend_address_pool[0].id
+}
