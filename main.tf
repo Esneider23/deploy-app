@@ -132,7 +132,7 @@ resource "azurerm_traffic_manager_azure_endpoint" "first-endpoint" {
 }
 
 resource "azurerm_traffic_manager_azure_endpoint" "segund-endpoint" {
-  name               = "motorshop-first-endpoint"
+  name               = "motorshop-segund-endpoint"
   profile_id         = azurerm_traffic_manager_profile.traffic-manager-motorshop.id
   priority           = 2
   target_resource_id = azurerm_linux_web_app.app-motorshop-2.id
