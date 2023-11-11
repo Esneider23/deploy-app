@@ -122,23 +122,16 @@ resource "azurerm_traffic_manager_profile" "traffic-manager-motorshop" {
 }
 
 resource "azurerm_traffic_manager_azure_endpoint" "first-endpoint" {
-  name               = "motorshop-first-endpoint"
-  profile_id         = azurerm_traffic_manager_profile.traffic-manager-motorshop.id
-  priority           = 1
-  target             = azurerm_linux_web_app.app-motorshop.default_site_hostname
+  name                = "motorshop-first-endpoint"
+  profile_id          = azurerm_traffic_manager_profile.traffic-manager-motorshop.id
+  priority            = 1
+  target_resource_id  = azurerm_linux_web_app.app-motorshop.id
 }
 
 resource "azurerm_traffic_manager_azure_endpoint" "segund-endpoint" {
-  name               = "motorshop-segund-endpoint"
-  profile_id         = azurerm_traffic_manager_profile.traffic-manager-motorshop.id
-  priority           = 2
-  target             = azurerm_linux_web_app.app-motorshop-2.default_site_hostname
+  name                 = "motorshop-segund-endpoint"
+  profile_id           = azurerm_traffic_manager_profile.traffic-manager-motorshop.id
+  priority             = 2
+  target_resource_id   = azurerm_linux_web_app.app-motorshop-2.id
 }
 
-output "app-motorshop" {
-  value = azurerm_linux_web_app.app-motorshop.default_site_hostname
-}
-
-output "app-motorshop-2" {
-  value = azurerm_linux_web_app.app-motorshop-2.default_site_hostname
-}
