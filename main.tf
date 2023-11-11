@@ -65,7 +65,7 @@ resource "azurerm_service_plan" "app" {
   resource_group_name = azurerm_resource_group.rg_service_web.name
   location            = azurerm_resource_group.rg_service_web.location
   os_type             = "Linux"
-  sku_name            =  "B1"
+  sku_name            =  "F1"
 }
 
 resource "azurerm_linux_web_app" "app-motorshop" {
@@ -83,23 +83,9 @@ resource "azurerm_linux_web_app" "app-motorshop" {
 }
 
 resource "azurerm_service_plan" "app2" {
-  name                = "app-service-plan-motorshop-2"
-  resource_group_name = azurerm_resource_group.rg_service_web.name
-  location            = "eastus2"
-  os_type             = "Linux"
-  sku_name            =  "B1"
-}
-
-resource "azurerm_linux_web_app" "app-motorshop2" {
+  location            = "westus3"
   name                = "app-motorshop-2"
+  os_type             = "Linux"
   resource_group_name = azurerm_resource_group.rg_service_web.name
-  location            = azurerm_service_plan.app2.location
-  service_plan_id     = azurerm_service_plan.app2.id
-
-  site_config {
-    application_stack{
-      docker_image_name = "esneider23/app-deploy:${var.imagebuild}"
-      docker_registry_url = "https://index.docker.io"
-    }
-  }
+  sku_name            = "F1"
 }
