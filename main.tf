@@ -81,3 +81,16 @@ resource "azurerm_linux_web_app" "app-motorshop" {
     }
   }
 }
+
+resource "azurerm_linux_web_app" app-motorshop2" {
+  name                = "app-motorshop2"
+  resource_group_name = azurerm_resource_group.rg_service_web.name
+  location            = "eastus2"
+  service_plan_id     = azurerm_service_plan.app.id
+  site_config {
+    application_stack{
+      docker_image_name = "esneider23/app-deploy:${var.imagebuild}"
+      docker_registry_url = "https://index.docker.io"
+    }
+  }
+}
