@@ -109,7 +109,8 @@ resource "azurerm_traffic_manager_profile" "traffic-manager-motorshop" {
   profile_status     = "Enabled"
   traffic_routing_method = "Priority"
   dns_config {
-    name = "motorshop"
+    relative_name = "motorshop"
+    ttl           = 60
   }
 
   monitor_config {
@@ -118,7 +119,7 @@ resource "azurerm_traffic_manager_profile" "traffic-manager-motorshop" {
     path     = "/"
   }
 
-  nested_endpoint {
+  endpoint {
     name       = "app1-endpoint"
     type       = "AzureEndpoints"
     target_resource_id = azurerm_linux_web_app.app-motorshop.id
@@ -126,7 +127,7 @@ resource "azurerm_traffic_manager_profile" "traffic-manager-motorshop" {
     priority   = 1
   }
 
-  nested_endpoint {
+  endpoint {
     name       = "app2-endpoint"
     type       = "AzureEndpoints"
     target_resource_id = azurerm_linux_web_app.app-motorshop-2.id
