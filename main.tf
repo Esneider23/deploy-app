@@ -119,9 +119,6 @@ resource "azurerm_traffic_manager_profile" "traffic-manager-motorshop" {
     port     = 80
     path     = "/"
   }
-  tags = {
-    environment = "Production"
-  }
 }
 
 resource "azurerm_traffic_manager_azure_endpoint" "first-endpoint" {
