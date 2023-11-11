@@ -29,6 +29,7 @@ stages:
 
 - stage: Provision
   displayName: 'Creating terraform on Azure'
+  dependsOn: Build
   jobs:
     - job: provision
       displayName: 'Provision instance'
