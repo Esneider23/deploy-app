@@ -102,3 +102,35 @@ resource "azurerm_linux_web_app" "app-motorshop-2" {
     }
   }
 }
+
+resource "azurerm_traffic_manager_profile" "traffic-manager-motorshop" {
+  name               = "traffic-manager-motorshop"
+  resource_group_name = azurerm_resource_group.rg_service_web.name
+  profile_status     = "Enabled"
+  traffic_routing_method = "Priority"
+  dns_config {
+    name = "motorshop"
+  }
+
+  monitor_config {
+    protocol = "HTTP"
+    port     = 80
+    path     = "/"
+  }
+
+  nested_endpoint {
+    name       = "app1-endpoint"
+    type       = "AzureEndpoints"
+    target_resource_id = azurerm_linux_web_app.app-motorshop.id
+    endpoint_location = azurerm_linux_web_app.app-motorshop.location
+    priority   = 1
+  }
+
+  nested_endpoint {
+    name       = "app2-endpoint"
+    type       = "AzureEndpoints"
+    target_resource_id = azurerm_linux_web_app.app-motorshop-2.id
+    endpoint_location = azurerm_linux_web_app.app-motorshop-2.location
+    priority   = 2
+  }
+}
