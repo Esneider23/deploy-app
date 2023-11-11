@@ -106,22 +106,16 @@ resource "azurerm_linux_web_app" "app-motorshop" {
   }
 }
 
-resource "azurerm_app_service_custom_hostname_binding" "custom_hostname_binding-1" {
+resource "azurerm_app_service_custom_hostname_binding" "custom_hostname_binding_1" {
   app_service_name    = "app-motorshop"
   hostname            = "motorshop.azurewebsites.net"
   resource_group_name = azurerm_resource_group.rg_service_web.name
-  depends_on = [
-    azurerm_linux_web_app.app-motorshop,
-  ]
 }
 
-resource "azurerm_app_service_custom_hostname_binding" "custom_hostname_binding-2" {
+resource "azurerm_app_service_custom_hostname_binding" "custom_hostname_binding_2" {
   app_service_name    =  "app-motorshop"
   hostname            = "motorshop-tmp.trafficmanager.net"
   resource_group_name = azurerm_resource_group.rg_service_web.name
-  depends_on = [
-    azurerm_linux_web_app.app-motorshop,
-  ]
 }
 
 
@@ -143,31 +137,10 @@ resource "azurerm_app_service_custom_hostname_binding" "custom_hostname_binding_
   app_service_name    = "motorshop-tmp-2"
   hostname            = "motorshop-tmp-2.trafficmanager.net"
   resource_group_name = azurerm_resource_group.rg_service_web.name
-  depends_on = [
-    azurerm_linux_web_app.app-motorshop-2,
-  ]
 }
 
 resource "azurerm_app_service_custom_hostname_binding" "custom_hostname_binding_4" {
   app_service_name    = "motorshop-tmp-2"
   hostname            = "motorshop-tmp-2.azurewebsites.net"
   resource_group_name = azurerm_resource_group.rg_service_web.name
-  depends_on = [
-    azurerm_linux_web_app.app-motorshop-2,
-  ]
 }
-
-resource "azurerm_traffic_manager_azure_endpoint" "first-endpoint" {
-  name                = "motorshop-first-endpoint"
-  profile_id          = azurerm_traffic_manager_profile.traffic-manager-motorshop.id
-  priority            = 1
-  target_resource_id  = azurerm_linux_web_app.app-motorshop.id
-}
-
-resource "azurerm_traffic_manager_azure_endpoint" "segund-endpoint" {
-  name                 = "motorshop-segund-endpoint"
-  profile_id           = azurerm_traffic_manager_profile.traffic-manager-motorshop.id
-  priority             = 2
-  target_resource_id   = azurerm_linux_web_app.app-motorshop-2.id
-}
-
