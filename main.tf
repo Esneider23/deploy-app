@@ -87,7 +87,7 @@ resource "azurerm_service_plan" "app2" {
   name                = "app-motorshop-2"
   os_type             = "Linux"
   resource_group_name = azurerm_resource_group.rg_service_web.name
-  sku_name            = "F1"
+  sku_name            = "B1"
 }
 
 resource "azurerm_linux_web_app" "app-motorshop-2" {
