@@ -89,3 +89,16 @@ resource "azurerm_service_plan" "app2" {
   resource_group_name = azurerm_resource_group.rg_service_web.name
   sku_name            = "F1"
 }
+
+resource "azurerm_linux_web_app" "app-motorshop-2" {
+  name                = "app-motorshop-2" 
+  location            = azurerm_service_plan.app2.location
+  resource_group_name = azurerm_resource_group.rg_service_web.name
+  service_plan_id     = azurerm_service_plan.app2.id
+  site_config {
+    application_stack{
+      docker_image_name = "esneider23/app-deploy:${var.imagebuild}"
+      docker_registry_url = "https://index.docker.io"
+    }
+  }
+}
