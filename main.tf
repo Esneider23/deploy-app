@@ -59,29 +59,6 @@ resource "azurerm_cosmosdb_postgresql_firewall_rule" "client_ip_rule" {
   ]
 }
 
-
-resource "azurerm_service_plan" "app" {
-  name                = "app-service-plan"
-  resource_group_name = azurerm_resource_group.rg_service_web.name
-  location            = azurerm_resource_group.rg_service_web.location
-  os_type             = "Linux"
-  sku_name            =  "F1"
-}
-
-resource "azurerm_linux_web_app" "app-motorshop" {
-  name                = "app-motorshop"
-  resource_group_name = azurerm_resource_group.rg_service_web.name
-  location            = azurerm_service_plan.app.location
-  service_plan_id     = azurerm_service_plan.app.id
-
-  site_config {
-    application_stack{
-      docker_image_name = "esneider23/app-deploy:${var.imagebuild}"
-      docker_registry_url = "https://index.docker.io"
-    }
-  }
-}
-
 resource "azurerm_service_plan" "app2" {
   location            = "westus3"
   name                = "app-motorshop-2"
