@@ -106,18 +106,6 @@ resource "azurerm_linux_web_app" "app-motorshop" {
   }
 }
 
-resource "azurerm_app_service_custom_hostname_binding" "custom_hostname_binding_1" {
-  app_service_name    = "app-motorshop"
-  hostname            = "motorshop.azurewebsites.net"
-  resource_group_name = azurerm_resource_group.rg_service_web.name
-}
-
-resource "azurerm_app_service_custom_hostname_binding" "custom_hostname_binding_2" {
-  app_service_name    =  "app-motorshop"
-  hostname            = "motorshop-tmp.trafficmanager.net"
-  resource_group_name = azurerm_resource_group.rg_service_web.name
-}
-
 
 
 resource "azurerm_linux_web_app" "app-motorshop-2" {
@@ -131,16 +119,4 @@ resource "azurerm_linux_web_app" "app-motorshop-2" {
       docker_registry_url = "https://index.docker.io"
     }
   }
-}
-
-resource "azurerm_app_service_custom_hostname_binding" "custom_hostname_binding_3" {
-  app_service_name    = "motorshop-tmp-2"
-  hostname            = "motorshop-tmp-2.trafficmanager.net"
-  resource_group_name = azurerm_resource_group.rg_service_web.name
-}
-
-resource "azurerm_app_service_custom_hostname_binding" "custom_hostname_binding_4" {
-  app_service_name    = "motorshop-tmp-2"
-  hostname            = "motorshop-tmp-2.azurewebsites.net"
-  resource_group_name = azurerm_resource_group.rg_service_web.name
 }
