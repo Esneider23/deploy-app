@@ -82,11 +82,19 @@ resource "azurerm_linux_web_app" "app-motorshop" {
   }
 }
 
-resource "azurerm_linux_web_app" "app-motorshop2" {
-  name                = "app-motorshop2"
+resource "azurerm_service_plan" "app2" {
+  name                = "app-service-plan-motorshop-2"
   resource_group_name = azurerm_resource_group.rg_service_web.name
   location            = "eastus2"
-  service_plan_id     = azurerm_service_plan.app.id
+  os_type             = "Linux"
+  sku_name            =  "B1"
+}
+
+resource "azurerm_linux_web_app" "app-motorshop2" {
+  name                = "app-motorshop-2"
+  resource_group_name = azurerm_resource_group.rg_service_web.name
+  location            = azurerm_service_plan.app2.location
+  service_plan_id     = azurerm_service_plan.app2.id
 
   site_config {
     application_stack{
