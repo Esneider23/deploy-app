@@ -81,7 +81,7 @@ resource "azurerm_traffic_manager_profile" "traffic-manager-motorshop" {
   traffic_routing_method = "Priority"
 
   dns_config {
-    relative_name = "motorshop"
+    relative_name = "motorshop-tmp"
     ttl           = 60
   }
 
@@ -93,6 +93,7 @@ resource "azurerm_traffic_manager_profile" "traffic-manager-motorshop" {
 }
 
 resource "azurerm_linux_web_app" "app-motorshop" {
+  https_only          = true
   name                = "app-motorshop"
   resource_group_name = azurerm_resource_group.rg_service_web.name
   location            = azurerm_service_plan.app.location
@@ -106,6 +107,23 @@ resource "azurerm_linux_web_app" "app-motorshop" {
   }
 }
 
+resource "azurerm_app_service_custom_hostname_binding" "res-7" {
+  app_service_name    = azurerm_linux_web_app.app-motorshop.name
+  hostname            = "motorshop-tmp.trafficmanager.net"
+  resource_group_name = "pruebas"
+  depends_on = [
+    azurerm_linux_web_app.app-motorshop,
+  ]
+}
+
+resource "azurerm_app_service_custom_hostname_binding" "res-8" {
+  app_service_name    = azurerm_linux_web_app.app-motorshop.name
+  hostname            = "motorshop.azurewebsites.net"
+  resource_group_name = "pruebas"
+  depends_on = [
+    azurerm_linux_web_app.app-motorshop,
+  ]
+}
 
 
 resource "azurerm_linux_web_app" "app-motorshop-2" {
