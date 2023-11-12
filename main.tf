@@ -103,3 +103,30 @@ resource "azurerm_linux_web_app" "app-motorshop-2" {
     }
   }
 }
+
+resource "azurerm_traffic_manager_profile" "motorshop-tm" {
+  name                   = "motorshop-Tm"
+  resource_group_name    = azurerm_resource_group.rg_service_web.name
+  traffic_routing_method = "Priority"
+  dns_config {
+    relative_name = "motorshop-tm"
+    ttl           = 60
+  }
+  monitor_config {
+    path     = "/"
+    port     = 80
+    protocol = "HTTP"
+  }
+}
+
+resource "azurerm_app_service_custom_hostname_binding" "res-11" {
+  app_service_name    = "app-motorshop-2"
+  hostname            = "app-motorshop-2.azurewebsites.net"
+  resource_group_name = azurerm_resource_group.rg_service_web.name
+}
+
+resource "azurerm_app_service_custom_hostname_binding" "res-12" {
+  app_service_name    = "app-motorshop-2"
+  hostname            = "motorshop-tm.trafficmanager.net"
+  resource_group_name = azurerm_resource_group.rg_service_web.name
+}
