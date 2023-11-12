@@ -119,7 +119,7 @@ resource "azurerm_traffic_manager_profile" "motorshop-tm" {
   }
 }
 
-resource "azurerm_app_service_custom_hostname_binding" "res-11" {
+resource "azurerm_app_service_custom_hostname_binding" "hostname_bindig" {
   app_service_name    = "app-motorshop-2"
   hostname            = "app-motorshop-2.azurewebsites.net"
   resource_group_name = azurerm_resource_group.rg_service_web.name
