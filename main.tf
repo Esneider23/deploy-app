@@ -133,3 +133,6 @@ resource "azurerm_traffic_manager_azure_endpoint" "segundo"{
   target_resource_id = azurerm_linux_web_app.app-motorshop-2.id
 }
 
+output "endpoint" {
+  value = azurerm_traffic_manager_profile.motorshop-tm.fqdn
+}
