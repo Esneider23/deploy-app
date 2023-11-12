@@ -118,3 +118,18 @@ resource "azurerm_traffic_manager_profile" "motorshop-tm" {
     protocol = "HTTP"
   }
 }
+
+resource "azurerm_traffic_manager_azure_endpoint" "primero"{
+  name = "primero"
+  profile_id = azurerm_traffic_manager_profile.motorshop-tm.id
+  priority = 1
+  target_resource_id = azurerm_linux_web_app.app-motorshop.id
+}
+
+resource "azurerm_traffic_manager_azure_endpoint" "segundo"{
+  name               = "segundo"
+  profile_id         = azurerm_traffic_manager_profile.motorshop-tm.id
+  priority           = 2
+  target_resource_id = azurerm_linux_web_app.app-motorshop-2.id
+}
+
