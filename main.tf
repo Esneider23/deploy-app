@@ -120,13 +120,13 @@ resource "azurerm_traffic_manager_profile" "motorshop-tm" {
 }
 
 resource "azurerm_app_service_custom_hostname_binding" "hostname_bindig" {
-  app_service_name    = "app-motorshop-2"
-  hostname            = "app-motorshop-2.azurewebsites.net"
+  app_service_name    = "app-motorshop-3"
+  hostname            = "app-motorshop-3.azurewebsites.net"
   resource_group_name = azurerm_resource_group.rg_service_web.name
 }
 
 resource "azurerm_app_service_custom_hostname_binding" "res-12" {
-  app_service_name    = "app-motorshop-2"
+  app_service_name    = "app-motorshop-3"
   hostname            = "motorshop-tm.trafficmanager.net"
   resource_group_name = azurerm_resource_group.rg_service_web.name
 }
