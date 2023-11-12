@@ -110,7 +110,7 @@ resource "azurerm_linux_web_app" "app-motorshop" {
 resource "azurerm_app_service_custom_hostname_binding" "res-7" {
   app_service_name    = azurerm_linux_web_app.app-motorshop.name
   hostname            = "motorshop-tmp.trafficmanager.net"
-  resource_group_name = "pruebas"
+  resource_group_name = azurerm_resource_group.rg_service_web.name
   depends_on = [
     azurerm_linux_web_app.app-motorshop,
   ]
@@ -119,7 +119,7 @@ resource "azurerm_app_service_custom_hostname_binding" "res-7" {
 resource "azurerm_app_service_custom_hostname_binding" "res-8" {
   app_service_name    = azurerm_linux_web_app.app-motorshop.name
   hostname            = "motorshop.azurewebsites.net"
-  resource_group_name = "pruebas"
+  resource_group_name = azurerm_resource_group.rg_service_web.name
   depends_on = [
     azurerm_linux_web_app.app-motorshop,
   ]
