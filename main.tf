@@ -115,7 +115,7 @@ resource "azurerm_traffic_manager_profile" "motorshop-tm" {
   monitor_config {
     path     = "/"
     port     = 80
-    protocol = "HTTP"
+    protocol = "HTTPS"
   }
 }
 
