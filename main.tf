@@ -130,3 +130,14 @@ resource "azurerm_app_service_custom_hostname_binding" "res-12" {
   hostname            = "motorshop-tm.trafficmanager.net"
   resource_group_name = azurerm_resource_group.rg_service_web.name
 }
+
+resource "azurerm_app_service_custom_hostname_binding" "res-17" {
+  app_service_name    = "app-motorshop-1"
+  hostname            = "app-motorshop.azurewebsites.net"
+  resource_group_name = azurerm_resource_group.rg_service_web.name
+}
+resource "azurerm_app_service_custom_hostname_binding" "res-18" {
+  app_service_name    = "app-motorshop-1"
+  hostname            = "motorshop-tm.trafficmanager.net"
+  resource_group_name = azurerm_resource_group.rg_service_web.name
+}
